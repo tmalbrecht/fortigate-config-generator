@@ -1,19 +1,21 @@
 !Configuration generated on {{ time_now }}
 
-
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !                           CONFIG
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-
 config firewall address
 {% for address in addresses %}
 edit N_{{ address.value | replace('/', '_')}}
-  set subnet {{ address.value }}
+  set subnet "{{ address.value }}"
+next
 {% endfor %}
 end
 
-config firewall address group
-edit bedrijfsnetwerk
-  set members {% for address in addresses %}'{{ address.value }}'{% if not loop.last %}, {% endif %}{% endfor %}
-{{ '\n' }}end
+# !!!set member will override existing members. use append memember when just adding members!!!!
+
+config firewall addrgrp
+edit group_name
+  set member {% for address in addresses %}N_{{ address.value | replace('/', '_') }}{% if not loop.last %} {% endif %}{% endfor %}
+{{ '\n' }}next
+end

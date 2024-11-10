@@ -43,13 +43,10 @@ def get_time():
 
 
 if __name__ == "__main__":
-    # Check if directories for xlsx files and generated config exist, if not create them
+    # Check if needed directories exist, if not create them
     os.makedirs("variables/", exist_ok=True)
     os.makedirs("generated_config/", exist_ok=True)
     os.makedirs("templates/", exist_ok=True)
-
-    # Set location to folder with all xlsx files
-    folder_variables = "variables"
 
     # Name xlsx file
     variables = "variables/variables.xlsx"

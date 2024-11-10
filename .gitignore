@@ -3,3 +3,5 @@ venv
 
 # Conf files
 generated_config/*.conf
+
+todo.txt
