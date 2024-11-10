@@ -1,0 +1,19 @@
+!Configuration generated on {{ time_now }}
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!                           CONFIG
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+config firewall address
+{% for address in addresses %}
+edit N_{{ address.value | replace('/', '_')}}
+  set subnet {{ address.value }}
+{% endfor %}
+end
+
+config firewall address group
+edit bedrijfsnetwerk
+  set members {% for address in addresses %}'{{ address.value }}'{% if not loop.last %}, {% endif %}{% endfor %}
+{{ '\n' }}end
